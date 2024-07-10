@@ -32,5 +32,8 @@ jobs:
         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/fedor_bot:latest .
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/fedor_bot:latest
 
+    - name: Accept new SSH host key
+      run: ssh-keyscan 31.128.33.230 >> ~/.ssh/known_hosts
+
     - name: Deploy to VM
       run: ssh root@31.128.33.230 'docker pull ${{ secrets.DOCKERHUB_USERNAME }}/fedor_bot:latest && docker-compose up -d'
