@@ -32,6 +32,9 @@ jobs:
         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/fedor_bot:latest .
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/fedor_bot:latest
 
+    - name: Create .ssh directory
+      run: mkdir -p ~/.ssh
+
     - name: Accept new SSH host key
       run: ssh-keyscan 31.128.33.230 >> ~/.ssh/known_hosts
 
