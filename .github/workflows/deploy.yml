@@ -33,4 +33,4 @@ jobs:
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/fedor_bot:latest
 
     - name: Deploy to VM
-      run: ssh user@your_vm_ip 'docker pull ${{ secrets.DOCKERHUB_USERNAME }}/fedor_bot:latest && docker-compose up -d'
+      run: ssh root@31.128.33.230 'docker pull ${{ secrets.DOCKERHUB_USERNAME }}/fedor_bot:latest && docker-compose up -d'
