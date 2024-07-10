@@ -35,8 +35,13 @@ jobs:
     - name: Create .ssh directory
       run: mkdir -p ~/.ssh
 
+    - name: Add SSH key
+      run: |
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+        chmod 600 ~/.ssh/id_ed25519
+
     - name: Accept new SSH host key
       run: ssh-keyscan 31.128.33.230 >> ~/.ssh/known_hosts
 
     - name: Deploy to VM
-      run: ssh root@31.128.33.230 'docker pull ${{ secrets.DOCKERHUB_USERNAME }}/fedor_bot:latest && docker-compose up -d'
+      run: ssh -i ~/.ssh/id_ed25519 root@31.128.33.230 'docker pull ${{ secrets.DOCKERHUB_USERNAME }}/fedor_bot:latest && docker-compose up -d'
